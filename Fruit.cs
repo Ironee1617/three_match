@@ -13,13 +13,12 @@ public class Fruit : MonoBehaviour
         Orange
     }
     public FRUITCOLOR block_Color;
-    public bool moved;
+    public Pair<int, int> local =  new Pair<int, int>();
 
     Queue<Vector3> end_Vector = new Queue<Vector3>();
 
     public IEnumerator Move(Vector3 e_vector, float _speed = 100f)
     {
-        moved = true;
         end_Vector.Enqueue(e_vector);
         while (true)
         {
@@ -31,7 +30,6 @@ public class Fruit : MonoBehaviour
                 }
                 if (end_Vector.Count == 0)
                 {
-                    moved = false;
                     end_Vector.Clear();
                     break;
                 }
@@ -48,7 +46,6 @@ public class Fruit : MonoBehaviour
 
     public IEnumerator Swap(Vector3 e_vector, System.Action callback, float _speed = 100)
     {
-        moved = true;
         while (true)
         {
             try
@@ -56,7 +53,6 @@ public class Fruit : MonoBehaviour
                 if (this.transform.position == e_vector)
                 {
                     callback();
-                    moved = false;
                     break;
                 }
                 this.transform.position = Vector3.MoveTowards(this.transform.position, e_vector, _speed * Time.deltaTime);

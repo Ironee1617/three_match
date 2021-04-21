@@ -7,7 +7,7 @@ public class Three_match_create : MonoBehaviour
     public GameObject tile;
     private GameObject[,] Tiles = new GameObject[8, 8];
 
-    public GameObject[] Fruit;
+    public Fruit[] Fruit;
 
     private Three_match_rule rule;
     // Start is called before the first frame update
@@ -38,8 +38,9 @@ public class Three_match_create : MonoBehaviour
         {
             for (int j = 0; j < rule.FruitLayout.GetLength(1); j++)
             {
-                GameObject f = Instantiate(Fruit[RandomFruitNum()]);
-                rule.FruitLayout[i, j] = f;
+                Fruit f = Instantiate(Fruit[RandomFruitNum()]);
+                f.local.SetValue(i, j);
+                rule.FruitLayout[i, j] = f.gameObject;
                 rule.FruitLayout[i, j].transform.localPosition = Tiles[i, j].transform.localPosition;
             }
         }
@@ -48,11 +49,5 @@ public class Three_match_create : MonoBehaviour
     private int RandomFruitNum()
     {
         return Random.Range(0, 5);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
