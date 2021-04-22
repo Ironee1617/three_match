@@ -9,12 +9,10 @@ public class Three_match_create : MonoBehaviour
 
     public Fruit[] Fruit;
 
-    private Three_match_rule rule;
+    public Three_match_rule rule;
     // Start is called before the first frame update
     void Start()
     {
-        rule = GetComponent<Three_match_rule>();
-
         InitTileLocal();
         InitFruitLayout();
     }
