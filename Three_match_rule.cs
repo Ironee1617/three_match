@@ -62,20 +62,22 @@ public class Three_match_rule : MonoBehaviour
 
             f_fruit.LocalSwap(s_fruit);
 
-
+            CheckThreeMatch(f_fruit);
         }
         else return;
     }
 
-    private bool CheckThreeMatch()
+    private bool CheckThreeMatch(Fruit fruit)
     {
-
+        List<Fruit> list = new List<Fruit>();
+        
+        //Check(fruit, list, );
         return false;
     }
 
-    private bool Check()
+    private void Check(Fruit fruit, List<Fruit> list, string direction)
     {
-        return false;
+        //fruit.local
     }
 
 
