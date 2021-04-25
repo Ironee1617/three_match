@@ -12,7 +12,7 @@ public class Fruit : MonoBehaviour
         Green,
         Orange
     }
-    public FRUITCOLOR block_Color;
+    public FRUITCOLOR fruit_Color;
     public Pair<int, int> local =  new Pair<int, int>();
 
     Queue<Vector3> end_Vector = new Queue<Vector3>();

@@ -70,14 +70,31 @@ public class Three_match_rule : MonoBehaviour
     private bool CheckThreeMatch(Fruit fruit)
     {
         List<Fruit> list = new List<Fruit>();
-        
-        //Check(fruit, list, );
+        //use dps,bps
+        //need to think
+        Check(fruit, list, "Up", fruit.fruit_Color);
+        Check(fruit, list, "Down", fruit.fruit_Color);
+        Check(fruit, list, "Right", fruit.fruit_Color);
+        Check(fruit, list, "Left", fruit.fruit_Color);
+
         return false;
     }
 
-    private void Check(Fruit fruit, List<Fruit> list, string direction)
+    private void Check(Fruit fruit, List<Fruit> list, string direction, Fruit.FRUITCOLOR color)
     {
-        //fruit.local
+        //if (color)
+        switch (direction)
+        {
+            case "Up":
+                    Fruit nextFruit = FruitLayout[fruit.local.First, fruit.local.Second].GetComponent<Fruit>();
+                    break;
+            case "Down":
+                break;
+            case "Right":
+                break;
+            case "Left":
+                break;
+        }
     }
 
 
