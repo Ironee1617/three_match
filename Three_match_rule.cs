@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class Three_match_rule : MonoBehaviour
 {
-    public GameObject[,] FruitLayout = new GameObject[8, 8];
+    private static Three_match_rule instance;
+    public static Three_match_rule Instance { get { return instance; } }
+
+
+    public Fruit[,] FruitLayout = new Fruit[8, 8];
     
     private GameObject touchedTile;
     public GameObject TouchedTile
@@ -60,41 +64,38 @@ public class Three_match_rule : MonoBehaviour
             StartCoroutine(f_fruit.Move(secondPos));
             StartCoroutine(s_fruit.Move(firstPos));
 
-            f_fruit.LocalSwap(s_fruit);
+            LayoutSwap(f_fruit, s_fruit);
 
             CheckThreeMatch(f_fruit);
         }
         else return;
     }
 
+    private void LayoutSwap(Fruit f_fruit, Fruit s_fruit)
+    {
+        f_fruit.LocalSwap(s_fruit);
+
+        Fruit temp = s_fruit;
+        FruitLayout[f_fruit.local.First, f_fruit.local.Second] = f_fruit;
+        FruitLayout[s_fruit.local.First, s_fruit.local.Second] = temp;
+    }
+
     private bool CheckThreeMatch(Fruit fruit)
     {
         List<Fruit> list = new List<Fruit>();
-        //use dps,bps
+        //use dfs,bfs
         //need to think
-        Check(fruit, list, "Up", fruit.fruit_Color);
-        Check(fruit, list, "Down", fruit.fruit_Color);
-        Check(fruit, list, "Right", fruit.fruit_Color);
-        Check(fruit, list, "Left", fruit.fruit_Color);
+        for (int i = 0; i < 4; i++)
+        {
+            Check(fruit, FruitLayout[fruit.local.First, fruit.local.Second]);
+        }
 
         return false;
     }
 
-    private void Check(Fruit fruit, List<Fruit> list, string direction, Fruit.FRUITCOLOR color)
+    private bool Check(Fruit fruit1, Fruit fruit2)
     {
-        //if (color)
-        switch (direction)
-        {
-            case "Up":
-                    Fruit nextFruit = FruitLayout[fruit.local.First, fruit.local.Second].GetComponent<Fruit>();
-                    break;
-            case "Down":
-                break;
-            case "Right":
-                break;
-            case "Left":
-                break;
-        }
+        return fruit1.fruit_Color == fruit2.fruit_Color;
     }
 
 

@@ -38,7 +38,7 @@ public class Three_match_create : MonoBehaviour
             {
                 Fruit f = Instantiate(Fruit[RandomFruitNum()]);
                 f.local.SetValue(i, j);
-                rule.FruitLayout[i, j] = f.gameObject;
+                rule.FruitLayout[i, j] = f;
                 rule.FruitLayout[i, j].transform.localPosition = Tiles[i, j].transform.localPosition;
             }
         }
