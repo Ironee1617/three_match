@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
+
 public class Three_match_rule : MonoBehaviour
 {
     private static Three_match_rule instance;
     public static Three_match_rule Instance { get { return instance; } }
 
+    public static Fruit[,] FruitLayout = new Fruit[8, 8];
 
-    public Fruit[,] FruitLayout = new Fruit[8, 8];
-    
+
     private GameObject touchedTile;
     public GameObject TouchedTile
     {
@@ -83,13 +85,9 @@ public class Three_match_rule : MonoBehaviour
     private bool CheckThreeMatch(Fruit fruit)
     {
         List<Fruit> list = new List<Fruit>();
-        //use dfs,bfs
-        //need to think
-        for (int i = 0; i < 4; i++)
-        {
-            Check(fruit, FruitLayout[fruit.local.First, fruit.local.Second]);
-        }
-
+        
+        Three_match_check.check(fruit);
+        Debug.Log("end check");
         return false;
     }
 

@@ -9,7 +9,6 @@ public class Three_match_create : MonoBehaviour
 
     public Fruit[] Fruit;
 
-    public Three_match_rule rule;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,14 +31,14 @@ public class Three_match_create : MonoBehaviour
 
     private void InitFruitLayout()
     {
-        for (int i = 0; i < rule.FruitLayout.GetLength(0); i++)
+        for (int i = 0; i < Three_match_rule.FruitLayout.GetLength(0); i++)
         {
-            for (int j = 0; j < rule.FruitLayout.GetLength(1); j++)
+            for (int j = 0; j < Three_match_rule.FruitLayout.GetLength(1); j++)
             {
                 Fruit f = Instantiate(Fruit[RandomFruitNum()]);
                 f.local.SetValue(i, j);
-                rule.FruitLayout[i, j] = f;
-                rule.FruitLayout[i, j].transform.localPosition = Tiles[i, j].transform.localPosition;
+                Three_match_rule.FruitLayout[i, j] = f;
+                Three_match_rule.FruitLayout[i, j].transform.localPosition = Tiles[i, j].transform.localPosition;
             }
         }
     }

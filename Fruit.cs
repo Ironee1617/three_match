@@ -65,7 +65,6 @@ public class Fruit : MonoBehaviour
 
     public bool PassibleToMove(Fruit fruit)
     {
-        Debug.Log(Mathf.Abs(local.First - fruit.local.First) + Mathf.Abs(local.Second - fruit.local.Second));
         if (Mathf.Abs(local.First - fruit.local.First) + Mathf.Abs(local.Second - fruit.local.Second) == 1) return true;
         else return false;
     }
