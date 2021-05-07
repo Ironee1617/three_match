@@ -17,7 +17,7 @@ public class Fruit : MonoBehaviour
 
     Queue<Vector3> end_Vector = new Queue<Vector3>();
 
-    public IEnumerator Move(Vector2 e_vector, float _speed = 100f)
+    public IEnumerator Move(Vector2 e_vector, float _speed = 10f)
     {
         end_Vector.Enqueue(e_vector);
         while (true)
@@ -28,7 +28,7 @@ public class Fruit : MonoBehaviour
                 if (end_Vector.Count == 0) { break; }
                 this.transform.position = Vector3.MoveTowards(this.transform.position, end_Vector.Peek(), _speed * Time.deltaTime);
             }
-            catch (MissingReferenceException e)
+            catch (MissingReferenceException )
             {
                 break;
             }

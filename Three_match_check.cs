@@ -9,6 +9,7 @@ public class Three_match_check : MonoBehaviour
     //public static Check check;
 
     public static Action<Fruit> check;
+    public static Action end_check;
 
     List<List<Fruit>> checked_fruit = new List<List<Fruit>>(4);
     private enum DIRECTION
@@ -30,9 +31,11 @@ public class Three_match_check : MonoBehaviour
         check += DownCheck;
         check += RightCheck;
         check += LeftCheck;
+
+        end_check += MatchCheck;
     }
 
-    void UpCheck(Fruit fruit)
+    private void UpCheck(Fruit fruit)
     {
         Fruit up_fruit = Three_match_rule.FruitLayout[fruit.local.First, fruit.local.Second + 1];
         if (fruit.fruit_Color == up_fruit.fruit_Color)
@@ -40,7 +43,7 @@ public class Three_match_check : MonoBehaviour
             EqualColor(checked_fruit, (int)DIRECTION.Up, up_fruit, UpCheck);
         }
     }
-    void DownCheck(Fruit fruit)
+    private void DownCheck(Fruit fruit)
     {
         Fruit down_fruit = Three_match_rule.FruitLayout[fruit.local.First, fruit.local.Second - 1];
         if (fruit.fruit_Color == down_fruit.fruit_Color)
@@ -48,7 +51,7 @@ public class Three_match_check : MonoBehaviour
             EqualColor(checked_fruit, (int)DIRECTION.Down, down_fruit, DownCheck);
         }
     }
-    void RightCheck(Fruit fruit)
+    private void RightCheck(Fruit fruit)
     {
         Fruit right_fruit = Three_match_rule.FruitLayout[fruit.local.First + 1, fruit.local.Second];
         if (fruit.fruit_Color == right_fruit.fruit_Color)
@@ -56,7 +59,7 @@ public class Three_match_check : MonoBehaviour
             EqualColor(checked_fruit, (int)DIRECTION.Right, right_fruit, RightCheck);
         }
     }
-    void LeftCheck(Fruit fruit)
+    private void LeftCheck(Fruit fruit)
     {
         Fruit left_fruit = Three_match_rule.FruitLayout[fruit.local.First - 1, fruit.local.Second];
         if (fruit.fruit_Color == left_fruit.fruit_Color)
@@ -65,7 +68,7 @@ public class Three_match_check : MonoBehaviour
         }
     }
 
-    void EqualColor(List<List<Fruit>> list, int dir, Fruit fruit, Action<Fruit> check_func)
+    private void EqualColor(List<List<Fruit>> list, int dir, Fruit fruit, Action<Fruit> check_func)
     {
         list[dir].Add(fruit);
         if (list[dir].Count < 1)
@@ -74,7 +77,7 @@ public class Three_match_check : MonoBehaviour
             return;
     }
 
-    void ListInit()
+    private void ListInit()
     {
         for(int i = 0; i < checked_fruit.Count; i++)
         {
@@ -84,28 +87,38 @@ public class Three_match_check : MonoBehaviour
 
     private void MatchCheck()
     {
-        bool match_success = false;
+        //bool match_success = false;
+        List<int> match_line = new List<int>();
 
-        match_success = FiveMatchCheck();
+        ThreeMatchCheck(match_line);
+        if (match_line.Count != 0)
+            FourMatchCheck(match_line);
     }
 
-    private bool ThreeMatchCheck()
+    private void ThreeMatchCheck(List<int> list)
     {
         for(int i = 0; i < checked_fruit.Count; i++)
         {
-            if (checked_fruit[i].Count.Equals(2)) { return true; }
+            if (checked_fruit[i].Count.Equals(2))
+            {
+                destroy_fruit.AddRange(checked_fruit[i]);
+                list.Add(i);
+            }
         }
-
-        return false;
     }
 
-    private bool FourMatchCheck(int number)
+    private void FourMatchCheck(List<int> list)
     {
-        int i = number < 2 ? number + 2 : number - 2;
+        if(list.Count != 0)
+        {
+            for(int i = 0; i < list.Count; i++)
+            {
+                int j = list[i] < 2 ? list[i] + 2 : list[i] - 2;
 
-        //if(checked_fruit[i])
-
-        return false;
+                if (checked_fruit[j].Count == 1)
+                    destroy_fruit.AddRange(checked_fruit[j]);
+            }
+        }
     }
 
     private bool FiveMatchCheck()

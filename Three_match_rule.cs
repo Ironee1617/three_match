@@ -87,6 +87,7 @@ public class Three_match_rule : MonoBehaviour
         List<Fruit> list = new List<Fruit>();
         
         Three_match_check.check(fruit);
+        Three_match_check.end_check();
 
         return false;
     }
