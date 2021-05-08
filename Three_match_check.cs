@@ -65,16 +65,21 @@ public class Three_match_check : MonoBehaviour
         if (fruit.fruit_Color == left_fruit.fruit_Color)
         {
             EqualColor(checked_fruit, (int)DIRECTION.Left, left_fruit, LeftCheck);
+            
         }
     }
 
     private void EqualColor(List<List<Fruit>> list, int dir, Fruit fruit, Action<Fruit> check_func)
     {
+        Debug.Log("dir : " + dir + " list count : " + list[dir].Count);
+
         list[dir].Add(fruit);
         if (list[dir].Count < 1)
             check_func(fruit);
         else
             return;
+
+        
     }
 
     private void ListInit()
@@ -83,6 +88,9 @@ public class Three_match_check : MonoBehaviour
         {
             checked_fruit[i].Clear();
         }
+
+        while (checked_fruit.Count < 4)
+            checked_fruit.Add(new List<Fruit>());
     }
 
     private void MatchCheck()
@@ -93,7 +101,25 @@ public class Three_match_check : MonoBehaviour
         ThreeMatchCheck(match_line);
         if (match_line.Count != 0)
             FourMatchCheck(match_line);
+        Debug.Log(match_line.Count != 0);
+        if (match_line.Count != 0)
+            DestroyFruit(ListInit);
+
+
     }
+
+    private void DestroyFruit(Action Callback)
+    {
+        for (int i = destroy_fruit.Count - 1; i < 0; i--)
+        {
+            destroy_fruit[i].gameObject.SetActive(false);
+            destroy_fruit.RemoveAt(i);
+        }
+
+        Callback();
+    }
+
+
 
     private void ThreeMatchCheck(List<int> list)
     {
