@@ -77,8 +77,8 @@ public class Three_match_rule : MonoBehaviour
     {
         f_fruit.LocalSwap(s_fruit);
 
-        Fruit temp = s_fruit;
-        FruitLayout[f_fruit.local.First, f_fruit.local.Second] = f_fruit;
+        Fruit temp = f_fruit;
+        FruitLayout[f_fruit.local.First, f_fruit.local.Second] = s_fruit;
         FruitLayout[s_fruit.local.First, s_fruit.local.Second] = temp;
     }
 

@@ -14,6 +14,14 @@ public class Three_match_create : MonoBehaviour
     {
         InitTileLocal();
         InitFruitLayout();
+
+        for (int i = 0; i < Three_match_rule.FruitLayout.GetLength(0); i++)
+        {
+            for (int j = 0; j < Three_match_rule.FruitLayout.GetLength(1); j++)
+            {
+                Debug.Log("[" + i + ", " + j + "] == " + Three_match_rule.FruitLayout[i, j]);
+            }
+        }
     }
 
     private void InitTileLocal()
