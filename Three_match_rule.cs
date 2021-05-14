@@ -81,9 +81,6 @@ public class Three_match_rule : MonoBehaviour
         FruitLayout[s_fruit.local.First, s_fruit.local.Second] = temp;
 
         f_fruit.LocalSwap(s_fruit);
-
-        Debug.Log(FruitLayout[f_fruit.local.First, f_fruit.local.Second].fruit_Color);
-        Debug.Log(FruitLayout[s_fruit.local.First, s_fruit.local.Second].fruit_Color);
     }
 
     private bool CheckThreeMatch(Fruit fruit)

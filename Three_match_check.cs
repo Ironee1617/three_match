@@ -38,7 +38,6 @@ public class Three_match_check : MonoBehaviour
     private void UpCheck(Fruit fruit)
     {
         Fruit up_fruit = Three_match_rule.FruitLayout[fruit.local.First - 1, fruit.local.Second];
-        Debug.Log("up local = " + up_fruit.local.First + ", " + up_fruit.local.Second);
         if (fruit.fruit_Color == up_fruit.fruit_Color)
         {
             EqualColor(checked_fruit, (int)DIRECTION.Up, up_fruit, UpCheck);
@@ -47,7 +46,6 @@ public class Three_match_check : MonoBehaviour
     private void DownCheck(Fruit fruit)
     {
         Fruit down_fruit = Three_match_rule.FruitLayout[fruit.local.First + 1, fruit.local.Second];
-        Debug.Log("down local = " + down_fruit.local.First + ", " + down_fruit.local.Second);
         if (fruit.fruit_Color == down_fruit.fruit_Color)
         {
             EqualColor(checked_fruit, (int)DIRECTION.Down, down_fruit, DownCheck);
@@ -56,7 +54,6 @@ public class Three_match_check : MonoBehaviour
     private void RightCheck(Fruit fruit)
     {
         Fruit right_fruit = Three_match_rule.FruitLayout[fruit.local.First, fruit.local.Second + 1];
-        Debug.Log("right local = " + right_fruit.local.First + ", " + right_fruit.local.Second);
         if (fruit.fruit_Color == right_fruit.fruit_Color)
         {
             EqualColor(checked_fruit, (int)DIRECTION.Right, right_fruit, RightCheck);
@@ -65,7 +62,6 @@ public class Three_match_check : MonoBehaviour
     private void LeftCheck(Fruit fruit)
     {
         Fruit left_fruit = Three_match_rule.FruitLayout[fruit.local.First, fruit.local.Second - 1];
-        Debug.Log("left local = " + left_fruit.local.First + ", " + left_fruit.local.Second);
         if (fruit.fruit_Color == left_fruit.fruit_Color)
         {
             EqualColor(checked_fruit, (int)DIRECTION.Left, left_fruit, LeftCheck);
@@ -75,8 +71,6 @@ public class Three_match_check : MonoBehaviour
 
     private void EqualColor(List<List<Fruit>> list, int dir, Fruit fruit, Action<Fruit> check_func)
     {
-        Debug.Log("dir : " + dir + " list count : " + list[dir].Count);
-
         list[dir].Add(fruit);
         if (list[dir].Count < 2)
             check_func(fruit);
@@ -112,10 +106,9 @@ public class Three_match_check : MonoBehaviour
 
     private void DestroyFruit(Action Callback)
     {
-        Debug.Log("destroy");
-        for (int i = destroy_fruit.Count - 1; i < 0; i--)
+        Debug.Log(destroy_fruit.Count);
+        for (int i = destroy_fruit.Count - 1; i >= 0; i--)
         {
-            Debug.Log("??");
             destroy_fruit[i].gameObject.SetActive(false);
             destroy_fruit.RemoveAt(i);
         }
