@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Three_match_check : MonoBehaviour
+
+
+public class Three_match_check : MonoBehaviour, ICheck
 {
     //public delegate void Check(Fruit fruit);
     //public static Check check;
@@ -67,7 +69,7 @@ public class Three_match_check : MonoBehaviour
     //    }
     //}
 
-    private void UpCheck(Fruit fruit)
+    public void UpCheck(Fruit fruit)
     {
         if (fruit.local.First == 0) return;
         Fruit up_fruit = Three_match_rule.FruitLayout[fruit.local.First - 1, fruit.local.Second];
@@ -77,7 +79,7 @@ public class Three_match_check : MonoBehaviour
         }
     }
 
-    private void DownCheck(Fruit fruit)
+    public void DownCheck(Fruit fruit)
     {
         if (fruit.local.First == 7) return;
         Fruit down_fruit = Three_match_rule.FruitLayout[fruit.local.First + 1, fruit.local.Second];
@@ -87,7 +89,7 @@ public class Three_match_check : MonoBehaviour
         }
     }
 
-    private void RightCheck(Fruit fruit)
+    public void RightCheck(Fruit fruit)
     {
         if (fruit.local.Second == 7) return;
         Fruit right_fruit = Three_match_rule.FruitLayout[fruit.local.First, fruit.local.Second + 1];
@@ -97,7 +99,7 @@ public class Three_match_check : MonoBehaviour
         }
     }
 
-    private void LeftCheck(Fruit fruit)
+    public void LeftCheck(Fruit fruit)
     {
         if (fruit.local.Second == 0) return;
         Fruit left_fruit = Three_match_rule.FruitLayout[fruit.local.First, fruit.local.Second - 1];
@@ -154,7 +156,7 @@ public class Three_match_check : MonoBehaviour
 
     private void ThreeMatchCheck(List<int> list)
     {
-        for(int i = 0; i < checked_fruit.Count; i++)
+        for (int i = 0; i < checked_fruit.Count; i++)
         {
             if (checked_fruit[i].Count.Equals(2))
             {
@@ -163,6 +165,7 @@ public class Three_match_check : MonoBehaviour
             }
         }
     }
+
 
     // need refactoring
     private void ThreeMatchCheckTwo(List<int> list)
