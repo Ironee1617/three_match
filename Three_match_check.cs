@@ -7,15 +7,57 @@ using System;
 
 public class Three_match_check : MonoBehaviour
 {
+    public static Func<Fruit[,], Fruit, bool> check;
 
+    private Pair<int, int>[] dir = new Pair<int, int>[4];
+    
+    private void InitDirection()
+    {
+        dir[0] = new Pair<int, int>(-1, 0);
+        dir[1] = new Pair<int, int>(1, 0);
+        dir[2] = new Pair<int, int>(0, -1);
+        dir[3] = new Pair<int, int>(0, 1);
+    }
 
     private void Start()
     {
-        
+        InitDirection();
+
+        check += CheckToMatch;
     }
 
+    private bool CheckToMatch(Fruit[,] layout, Fruit fruit)
+    {
+        List<Fruit> checked_fruit = new List<Fruit>();
+        List<Fruit> destroy_fruit = new List<Fruit>();
 
+        checked_fruit.Add(fruit);
 
+        for(int i = 0; i < 2; i++)
+        {
+            Recursion(layout, fruit, i, checked_fruit);
+        }
+
+        if (checked_fruit.Count > 2) destroy_fruit.AddRange(checked_fruit);
+        //horizontal, vertical 나눠서 검사.
+        return false;
+    }
+
+    private void Recursion(Fruit[,] layout, Fruit fruit, int dir_num, List<Fruit> list)
+    {
+        //layout 범위 조정
+        Fruit next_fruit = layout[fruit.local.First + dir[dir_num].First, fruit.local.Second + dir[dir_num].Second];
+        if (CheckToColor(fruit, next_fruit))
+        {
+            list.Add(next_fruit);
+            Recursion(layout, next_fruit, dir_num, list);
+        }
+    }
+
+    private bool CheckToColor(Fruit f_fruit, Fruit s_fruit)
+    {
+        return f_fruit.fruit_Color == s_fruit.fruit_Color;
+    }
 
 
 

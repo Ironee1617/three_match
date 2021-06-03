@@ -68,8 +68,8 @@ public class Three_match_rule : MonoBehaviour
 
             LayoutSwap(f_fruit, s_fruit);
 
-            CheckThreeMatch(f_fruit);
-            CheckThreeMatch(s_fruit);
+            CheckMatch(f_fruit);
+            CheckMatch(s_fruit);
         }
         else return;
     }
@@ -83,11 +83,11 @@ public class Three_match_rule : MonoBehaviour
         f_fruit.LocalSwap(s_fruit);
     }
 
-    private bool CheckThreeMatch(Fruit fruit)
+    private bool CheckMatch(Fruit fruit)
     {
         List<Fruit> list = new List<Fruit>();
         
-        //Three_match_check.check(fruit);
+        Three_match_check.check(FruitLayout, fruit);
         //Three_match_check.end_check();
 
         return false;
