@@ -70,6 +70,7 @@ public class Three_match_rule : MonoBehaviour
 
             CheckMatch(f_fruit);
             CheckMatch(s_fruit);
+            
         }
         else return;
     }

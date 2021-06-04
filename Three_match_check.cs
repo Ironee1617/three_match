@@ -9,7 +9,7 @@ public class Three_match_check : MonoBehaviour
 {
     public static Func<Fruit[,], Fruit, bool> check;
 
-    private Pair<int, int>[] dir = new Pair<int, int>[4];
+    public Pair<int, int>[] dir = new Pair<int, int>[4];
     
     private void InitDirection()
     {
@@ -26,37 +26,68 @@ public class Three_match_check : MonoBehaviour
         check += CheckToMatch;
     }
 
-    private bool CheckToMatch(Fruit[,] layout, Fruit fruit)
+    private bool CheckToMatch(Fruit[,] _layout, Fruit _fruit)
     {
         List<Fruit> checked_fruit = new List<Fruit>();
         List<Fruit> destroy_fruit = new List<Fruit>();
 
-        checked_fruit.Add(fruit);
+        destroy_fruit.Add(_fruit);
 
-        for(int i = 0; i < 2; i++)
+        VerticalCheck(_layout, _fruit, checked_fruit, destroy_fruit);
+        HorizontalCheck(_layout, _fruit, checked_fruit, destroy_fruit);
+
+        if(destroy_fruit.Count > 2)
         {
-            Recursion(layout, fruit, i, checked_fruit);
+            FruitToDestroy(destroy_fruit);
+            return true;
         }
-
-        if (checked_fruit.Count > 2) destroy_fruit.AddRange(checked_fruit);
-        //horizontal, vertical 나눠서 검사.
         return false;
     }
 
-    private void Recursion(Fruit[,] layout, Fruit fruit, int dir_num, List<Fruit> list)
+    private void VerticalCheck(Fruit[,] _layout, Fruit _fruit, List<Fruit> _checked_fruit, List<Fruit> _destroy_fruit)
+    {
+        Recursion(_layout, _fruit, 0, _checked_fruit);
+        Recursion(_layout, _fruit, 1, _checked_fruit);
+
+        if (_checked_fruit.Count > 1) _destroy_fruit.AddRange(_checked_fruit);
+        _checked_fruit.Clear();
+    }
+
+    private void HorizontalCheck(Fruit[,] _layout, Fruit _fruit, List<Fruit> _checked_fruit, List<Fruit> _destroy_fruit)
+    {
+        Recursion(_layout, _fruit, 2, _checked_fruit);
+        Recursion(_layout, _fruit, 3, _checked_fruit);
+
+        if (_checked_fruit.Count > 1) _destroy_fruit.AddRange(_checked_fruit);
+        _checked_fruit.Clear();
+    }
+
+    private void Recursion(Fruit[,] _layout, Fruit _fruit, int _dir_num, List<Fruit> _list)
     {
         //layout 범위 조정
-        Fruit next_fruit = layout[fruit.local.First + dir[dir_num].First, fruit.local.Second + dir[dir_num].Second];
-        if (CheckToColor(fruit, next_fruit))
+        Fruit next_fruit = _layout[_fruit.local.First + dir[_dir_num].First, _fruit.local.Second + dir[_dir_num].Second];
+        if (CheckToColor(_fruit, next_fruit))
         {
-            list.Add(next_fruit);
-            Recursion(layout, next_fruit, dir_num, list);
+            _list.Add(next_fruit);
+            Recursion(_layout, next_fruit, _dir_num, _list);
         }
     }
 
-    private bool CheckToColor(Fruit f_fruit, Fruit s_fruit)
+    private bool CheckToColor(Fruit _f_fruit, Fruit _s_fruit)
     {
-        return f_fruit.fruit_Color == s_fruit.fruit_Color;
+        return _f_fruit.fruit_Color == _s_fruit.fruit_Color;
+    }
+
+    private void FruitToDestroy(List<Fruit> _destroy_fruit)
+    {
+        Debug.Log(1);
+        //need to fix it later
+        for(int i = 0; i < _destroy_fruit.Count; i++)
+        {
+            Destroy(_destroy_fruit[i]);
+        }
+
+        _destroy_fruit.Clear();
     }
 
 
