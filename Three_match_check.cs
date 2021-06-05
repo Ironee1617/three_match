@@ -10,7 +10,10 @@ public class Three_match_check : MonoBehaviour
     public static Func<Fruit[,], Fruit, bool> check;
 
     public Pair<int, int>[] dir = new Pair<int, int>[4];
-    
+    private int small_end_pos = -1;
+    private int big_end_pos = 8;
+
+
     private void InitDirection()
     {
         dir[0] = new Pair<int, int>(-1, 0);
@@ -65,6 +68,7 @@ public class Three_match_check : MonoBehaviour
     private void Recursion(Fruit[,] _layout, Fruit _fruit, int _dir_num, List<Fruit> _list)
     {
         //layout 범위 조정
+        //if(_fruit.local.First)
         Fruit next_fruit = _layout[_fruit.local.First + dir[_dir_num].First, _fruit.local.Second + dir[_dir_num].Second];
         if (CheckToColor(_fruit, next_fruit))
         {
@@ -80,7 +84,6 @@ public class Three_match_check : MonoBehaviour
 
     private void FruitToDestroy(List<Fruit> _destroy_fruit)
     {
-        Debug.Log(1);
         //need to fix it later
         for(int i = 0; i < _destroy_fruit.Count; i++)
         {
