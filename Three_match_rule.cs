@@ -87,9 +87,8 @@ public class Three_match_rule : MonoBehaviour
     private bool CheckMatch(Fruit fruit)
     {
         List<Fruit> list = new List<Fruit>();
-        
-        Three_match_check.check(FruitLayout, fruit);
-        //Three_match_check.end_check();
+
+        if (Three_match_check.Check(FruitLayout, fruit)) return true;
 
         return false;
     }

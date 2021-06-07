@@ -7,7 +7,7 @@ using System;
 
 public class Three_match_check : MonoBehaviour
 {
-    public static Func<Fruit[,], Fruit, bool> check;
+    public static Func<Fruit[,], Fruit, bool> Check;
 
     public Pair<int, int>[] dir = new Pair<int, int>[4];
     private int small_end_pos = -1;
@@ -26,7 +26,7 @@ public class Three_match_check : MonoBehaviour
     {
         InitDirection();
 
-        check += CheckToMatch;
+        Check += CheckToMatch;
     }
 
     private bool CheckToMatch(Fruit[,] _layout, Fruit _fruit)
@@ -35,7 +35,7 @@ public class Three_match_check : MonoBehaviour
         List<Fruit> destroy_fruit = new List<Fruit>();
 
         destroy_fruit.Add(_fruit);
-
+        Debug.Log(1);
         VerticalCheck(_layout, _fruit, checked_fruit, destroy_fruit);
         HorizontalCheck(_layout, _fruit, checked_fruit, destroy_fruit);
 
@@ -49,6 +49,7 @@ public class Three_match_check : MonoBehaviour
 
     private void VerticalCheck(Fruit[,] _layout, Fruit _fruit, List<Fruit> _checked_fruit, List<Fruit> _destroy_fruit)
     {
+        Debug.Log(2);
         Recursion(_layout, _fruit, 0, _checked_fruit);
         Recursion(_layout, _fruit, 1, _checked_fruit);
 
@@ -69,9 +70,27 @@ public class Three_match_check : MonoBehaviour
     {
         //layout 범위 조정
         //if(_fruit.local.First)
+        Debug.Log(_fruit.local.First + ", " + _fruit.local.Second);
+        switch (_dir_num)
+        {
+            case 0:
+                if (_fruit.local.First == 0) return;
+                break;
+            case 1:
+                if (_fruit.local.First == 7) return;
+                break;
+            case 2:
+                if (_fruit.local.Second == 0) return;
+                break;
+            case 3:
+                if (_fruit.local.Second == 7) return;
+                break;
+        } // need refactoring
+
         Fruit next_fruit = _layout[_fruit.local.First + dir[_dir_num].First, _fruit.local.Second + dir[_dir_num].Second];
         if (CheckToColor(_fruit, next_fruit))
         {
+            Debug.Log(3);
             _list.Add(next_fruit);
             Recursion(_layout, next_fruit, _dir_num, _list);
         }
@@ -87,9 +106,9 @@ public class Three_match_check : MonoBehaviour
         //need to fix it later
         for(int i = 0; i < _destroy_fruit.Count; i++)
         {
-            Destroy(_destroy_fruit[i]);
+            _destroy_fruit[i].gameObject.SetActive(false);
         }
-
+        Debug.Log(4);
         _destroy_fruit.Clear();
     }
 

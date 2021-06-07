@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Three_match_create : MonoBehaviour
 {
+    public static Action ReCreate;
+
     public GameObject tile;
     private GameObject[,] Tiles = new GameObject[8, 8];
 
@@ -47,4 +50,6 @@ public class Three_match_create : MonoBehaviour
     {
         return Random.Range(0, 5);
     }
+
+
 }
