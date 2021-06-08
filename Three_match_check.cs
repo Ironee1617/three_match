@@ -10,9 +10,6 @@ public class Three_match_check : MonoBehaviour
     public static Func<Fruit[,], Fruit, bool> Check;
 
     public Pair<int, int>[] dir = new Pair<int, int>[4];
-    private int small_end_pos = -1;
-    private int big_end_pos = 8;
-
 
     private void InitDirection()
     {

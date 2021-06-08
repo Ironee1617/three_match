@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Fruit : MonoBehaviour
-{
+{ 
+
     public enum FRUITCOLOR
     {
         Blue,
@@ -17,8 +19,11 @@ public class Fruit : MonoBehaviour
 
     Queue<Vector3> end_Vector = new Queue<Vector3>();
 
-    public IEnumerator Move(Vector2 e_vector, float _speed = 10f)
+    
+
+    public IEnumerator Move(Vector2 e_vector, Action _callback, float _speed = 10f)
     {
+        
         end_Vector.Enqueue(e_vector);
         while (true)
         {
@@ -35,6 +40,7 @@ public class Fruit : MonoBehaviour
             yield return null;
         }
 
+        //_callback;
     }
 
     //public IEnumerator Swap(Vector2 e_vector, System.Action callback, float _speed = 100)

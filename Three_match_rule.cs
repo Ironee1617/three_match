@@ -62,17 +62,23 @@ public class Three_match_rule : MonoBehaviour
         {
             Vector2 firstPos = f_fruit.transform.position;
             Vector2 secondPos = s_fruit.transform.position;
+            bool match_check = false;
 
-            StartCoroutine(f_fruit.Move(secondPos));
-            StartCoroutine(s_fruit.Move(firstPos));
+            //StartCoroutine(f_fruit.Move(secondPos));
+            //StartCoroutine(s_fruit.Move(firstPos));
 
             LayoutSwap(f_fruit, s_fruit);
 
-            CheckMatch(f_fruit);
-            CheckMatch(s_fruit);
             
         }
         else return;
+    }
+
+    private bool CheckMatchRule(Fruit f_fruit, Fruit s_fruit)
+    {
+        if (CheckMatch(f_fruit) == false && CheckMatch(s_fruit) == false)
+            return true;
+        return false;
     }
 
     private void LayoutSwap(Fruit f_fruit, Fruit s_fruit)
@@ -99,8 +105,14 @@ public class Three_match_rule : MonoBehaviour
     }
 
 
-    private void ThreeMatchFail()
+    private void MatchFail(Fruit f_fruit, Fruit s_fruit)
     {
+        Vector2 firstPos = s_fruit.transform.position;
+        Vector2 secondPos = f_fruit.transform.position;
 
+        //StartCoroutine(f_fruit.Move(secondPos));
+        //StartCoroutine(s_fruit.Move(firstPos));
+
+        LayoutSwap(f_fruit, s_fruit);
     }
 }
