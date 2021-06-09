@@ -32,7 +32,6 @@ public class Three_match_check : MonoBehaviour
         List<Fruit> destroy_fruit = new List<Fruit>();
 
         destroy_fruit.Add(_fruit);
-        Debug.Log(1);
         VerticalCheck(_layout, _fruit, checked_fruit, destroy_fruit);
         HorizontalCheck(_layout, _fruit, checked_fruit, destroy_fruit);
 
@@ -46,7 +45,6 @@ public class Three_match_check : MonoBehaviour
 
     private void VerticalCheck(Fruit[,] _layout, Fruit _fruit, List<Fruit> _checked_fruit, List<Fruit> _destroy_fruit)
     {
-        Debug.Log(2);
         Recursion(_layout, _fruit, 0, _checked_fruit);
         Recursion(_layout, _fruit, 1, _checked_fruit);
 
@@ -65,9 +63,6 @@ public class Three_match_check : MonoBehaviour
 
     private void Recursion(Fruit[,] _layout, Fruit _fruit, int _dir_num, List<Fruit> _list)
     {
-        //layout 범위 조정
-        //if(_fruit.local.First)
-        Debug.Log(_fruit.local.First + ", " + _fruit.local.Second);
         switch (_dir_num)
         {
             case 0:
@@ -87,7 +82,6 @@ public class Three_match_check : MonoBehaviour
         Fruit next_fruit = _layout[_fruit.local.First + dir[_dir_num].First, _fruit.local.Second + dir[_dir_num].Second];
         if (CheckToColor(_fruit, next_fruit))
         {
-            Debug.Log(3);
             _list.Add(next_fruit);
             Recursion(_layout, next_fruit, _dir_num, _list);
         }
@@ -105,7 +99,6 @@ public class Three_match_check : MonoBehaviour
         {
             _destroy_fruit[i].gameObject.SetActive(false);
         }
-        Debug.Log(4);
         _destroy_fruit.Clear();
     }
 
