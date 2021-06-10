@@ -99,6 +99,10 @@ public class Three_match_check : MonoBehaviour
         {
             _destroy_fruit[i].gameObject.SetActive(false);
         }
+
+        Three_match_create.ReCreate(_destroy_fruit);
+
+
         _destroy_fruit.Clear();
     }
 

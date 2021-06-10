@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Three_match_create : MonoBehaviour
 {
-    public static Action ReCreate;
+    public static Action<List<Fruit>> ReCreate;
 
     public GameObject tile;
     private GameObject[,] Tiles = new GameObject[8, 8];
@@ -18,6 +18,8 @@ public class Three_match_create : MonoBehaviour
     {
         InitTileLocal();
         InitFruitLayout();
+
+        ReCreate += ReCreateFruit;
     }
 
     private void InitTileLocal()
@@ -52,5 +54,18 @@ public class Three_match_create : MonoBehaviour
         return Random.Range(0, 5);
     }
 
+    public void ReCreateFruit(List<Fruit> _destroyed_local)
+    {
+        for(int i = 0; i < _destroyed_local.Count; i++)
+        {
+            Fruit fruit = Manager_ObjectPool.Instance.PopFromPool(RandomFruitNum()).GetComponent<Fruit>();
+            fruit.local = _destroyed_local[i].local;
+            fruit.transform.position = _destroyed_local[i].transform.position;
 
+            fruit.gameObject.SetActive(true);
+
+        }
+        
+
+    }
 }
