@@ -67,11 +67,11 @@ public class Three_match_rule : MonoBehaviour
             LayoutSwap(f_fruit, s_fruit);
 
             moving = true;
-            StartCoroutine(f_fruit.Move(secondPos, moving));
-            StartCoroutine(s_fruit.Move(firstPos, moving));
+            StartCoroutine(f_fruit.Move(secondPos));
+            StartCoroutine(s_fruit.Move(firstPos));
 
-
-
+            if (!CheckMatchRule(f_fruit, s_fruit))
+                Debug.Log("back");
 
         }
         else return;

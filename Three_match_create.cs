@@ -65,7 +65,5 @@ public class Three_match_create : MonoBehaviour
             fruit.gameObject.SetActive(true);
 
         }
-        
-
     }
 }

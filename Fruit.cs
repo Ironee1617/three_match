@@ -21,9 +21,9 @@ public class Fruit : MonoBehaviour
 
     
 
-    public IEnumerator Move(Vector2 e_vector, bool _moving, float _speed = 10f)
+    public IEnumerator Move(Vector2 e_vector, float _speed = 10f)
     {
-        _moving = true;
+
         end_Vector.Enqueue(e_vector);
         while (true)
         {
@@ -40,7 +40,7 @@ public class Fruit : MonoBehaviour
             yield return null;
         }
 
-        _moving = false;
+
 
     }
 
