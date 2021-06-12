@@ -9,6 +9,8 @@ public class Three_match_create : MonoBehaviour
     public static Action<List<Fruit>> ReCreate;
 
     public GameObject tile;
+    
+    private int tile_pool_number = 5;
     private GameObject[,] Tiles = new GameObject[8, 8];
 
     public Fruit[] Fruit;
@@ -28,7 +30,7 @@ public class Three_match_create : MonoBehaviour
         {
             for(int j = 0; j < Tiles.GetLength(1); j++)
             {
-                GameObject t = Instantiate(tile);
+                GameObject t = Manager_ObjectPool.Instance.PopFromPool(tile_pool_number);
                 Tiles[i, j] = t;
                 Tiles[i, j].transform.localPosition = new Vector2(-2.1f + (j * 0.6f), 2.1f + (i * -0.6f));
             }
@@ -41,7 +43,7 @@ public class Three_match_create : MonoBehaviour
         {
             for (int j = 0; j < Three_match_rule.FruitLayout.GetLength(1); j++)
             {
-                Fruit f = Instantiate(Fruit[RandomFruitNum()]);
+                Fruit f = Manager_ObjectPool.Instance.PopFromPool(RandomFruitNum()).GetComponent<Fruit>();
                 f.local.SetValue(i, j);
                 Three_match_rule.FruitLayout[i, j] = f;
                 Three_match_rule.FruitLayout[i, j].transform.localPosition = Tiles[i, j].transform.localPosition;
@@ -59,7 +61,7 @@ public class Three_match_create : MonoBehaviour
         for(int i = 0; i < _destroyed_local.Count; i++)
         {
             Fruit fruit = Manager_ObjectPool.Instance.PopFromPool(RandomFruitNum()).GetComponent<Fruit>();
-            fruit.local = _destroyed_local[i].local;
+            fruit.local.SetValue(_destroyed_local[i].local);
             fruit.transform.position = _destroyed_local[i].transform.position;
 
             fruit.gameObject.SetActive(true);
