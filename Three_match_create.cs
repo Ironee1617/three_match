@@ -33,6 +33,8 @@ public class Three_match_create : MonoBehaviour
                 GameObject t = Manager_ObjectPool.Instance.PopFromPool(tile_pool_number);
                 Tiles[i, j] = t;
                 Tiles[i, j].transform.localPosition = new Vector2(-2.1f + (j * 0.6f), 2.1f + (i * -0.6f));
+
+                t.SetActive(true);
             }
         }
     }
@@ -47,6 +49,8 @@ public class Three_match_create : MonoBehaviour
                 f.local.SetValue(i, j);
                 Three_match_rule.FruitLayout[i, j] = f;
                 Three_match_rule.FruitLayout[i, j].transform.localPosition = Tiles[i, j].transform.localPosition;
+
+                f.gameObject.SetActive(true);
             }
         }
     }
@@ -63,6 +67,7 @@ public class Three_match_create : MonoBehaviour
             Fruit fruit = Manager_ObjectPool.Instance.PopFromPool(RandomFruitNum()).GetComponent<Fruit>();
             fruit.local.SetValue(_destroyed_local[i].local);
             fruit.transform.position = _destroyed_local[i].transform.position;
+            //Add layout
 
             fruit.gameObject.SetActive(true);
 

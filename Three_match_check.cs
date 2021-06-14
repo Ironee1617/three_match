@@ -37,6 +37,8 @@ public class Three_match_check : MonoBehaviour
 
         if(destroy_fruit.Count > 2)
         {
+            //Manager_Score.Instance.Score += destroy_fruit.Count * 10;
+            Debug.Log(Manager_Score.Instance.Score);
             FruitToDestroy(destroy_fruit);
             return true;
         }

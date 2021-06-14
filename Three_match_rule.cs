@@ -8,9 +8,6 @@ using UnityEngine;
 
 public class Three_match_rule : MonoBehaviour
 {
-    private static Three_match_rule instance;
-    public static Three_match_rule Instance { get { return instance; } }
-
     public static Fruit[,] FruitLayout = new Fruit[8, 8];
 
 
@@ -62,16 +59,24 @@ public class Three_match_rule : MonoBehaviour
         {
             Vector2 firstPos = f_fruit.transform.position;
             Vector2 secondPos = s_fruit.transform.position;
-            bool moving = false;
 
             LayoutSwap(f_fruit, s_fruit);
 
-            moving = true;
-            StartCoroutine(f_fruit.Move(secondPos));
-            StartCoroutine(s_fruit.Move(firstPos));
+            StartCoroutine(f_fruit.Swap(secondPos, () => { }));
+            StartCoroutine(s_fruit.Swap(firstPos, () => {
+                if (!CheckMatchRule(f_fruit, s_fruit))
+                {
+                    firstPos = f_fruit.transform.position;
+                    secondPos = s_fruit.transform.position;
 
-            if (!CheckMatchRule(f_fruit, s_fruit))
-                Debug.Log("back");
+                    LayoutSwap(f_fruit, s_fruit);
+
+                    StartCoroutine(f_fruit.Move(secondPos));
+                    StartCoroutine(s_fruit.Move(firstPos));
+                }
+            }));
+
+            
 
         }
         else return;

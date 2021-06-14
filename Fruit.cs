@@ -44,30 +44,21 @@ public class Fruit : MonoBehaviour
 
     }
 
-    //public IEnumerator Swap(Vector2 e_vector, System.Action callback, float _speed = 100)
-    //{
-    //    while (true)
-    //    {
-    //        try
-    //        {
-    //            if (this.transform.position == e_vector)
-    //            {
-    //                callback();
-    //                break;
-    //            }
-    //            this.transform.position = Vector3.MoveTowards(this.transform.position, e_vector, _speed * Time.deltaTime);
-    //        }
-    //        catch (MissingReferenceException e)
-    //        {
-    //            break;
-    //        }
-    //        yield return null;
-    //    }
-    //}
-
-    public void AddVector(Vector3 _vector)
+    public IEnumerator Swap(Vector3 e_vector, System.Action callback, float _speed = 30)
     {
-        end_Vector.Enqueue(_vector);
+        while (true)
+        {
+
+            if (this.transform.position == e_vector)
+            {
+                yield return new WaitForSeconds(0.2f);
+                callback();
+                break;
+            }
+            this.transform.position = Vector3.MoveTowards(this.transform.position, e_vector, _speed * Time.deltaTime);
+
+            yield return null;
+        }
     }
 
     public bool PassibleToMove(Fruit fruit)
