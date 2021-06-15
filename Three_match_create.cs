@@ -68,6 +68,7 @@ public class Three_match_create : MonoBehaviour
             fruit.local.SetValue(_destroyed_local[i].local);
             fruit.transform.position = _destroyed_local[i].transform.position;
             //Add layout
+            Three_match_rule.FruitLayout[_destroyed_local[i].local.First, _destroyed_local[i].local.Second] = fruit;
 
             fruit.gameObject.SetActive(true);
 

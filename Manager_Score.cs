@@ -30,4 +30,9 @@ public class Manager_Score : MonoBehaviour
     {
         score_text.text = Score.ToString();
     }
+
+    public void ScorePoints(int _point)
+    {
+        Score += _point;
+    }
 }
